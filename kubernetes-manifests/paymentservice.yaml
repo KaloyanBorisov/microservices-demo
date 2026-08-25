@@ -18,6 +18,7 @@ metadata:
   name: paymentservice
   labels:
     app: paymentservice
+    app.kubernetes.io/name: paymentservice
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ spec:
     metadata:
       labels:
         app: paymentservice
+        app.kubernetes.io/name: paymentservice
     spec:
       serviceAccountName: paymentservice
       terminationGracePeriodSeconds: 5
@@ -71,6 +73,7 @@ metadata:
   name: paymentservice
   labels:
     app: paymentservice
+    app.kubernetes.io/name: paymentservice
 spec:
   type: ClusterIP
   selector:

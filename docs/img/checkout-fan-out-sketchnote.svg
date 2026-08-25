@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1060" role="img" aria-label="Diagram: the browser and load generator call the frontend; the frontend calls ads, recommendations, the shopping assistant, the product catalog, currency, shipping and cart directly; cart reads and writes Redis; and when checkout runs, it separately calls payment, email, shipping, cart, currency and product catalog to complete the order.">
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.3" cy="1.3" r="1.3" fill="#DED0AC"></circle>
+    </pattern>
+    <marker id="arrow-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2A2420"></path>
+    </marker>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C1451B"></path>
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#746B58"></path>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1300" height="1060" fill="#EDE6D3"></rect>
+  <rect x="0" y="0" width="1300" height="1060" fill="url(#dots)"></rect>
+
+  <text x="40" y="52" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="30" fill="#2A2420">The checkout fan-out</text>
+  <text x="40" y="78" font-family="'Patrick Hand','Comic Sans MS',cursive,sans-serif" font-size="16" fill="#746B58">Online Boutique — how a single checkout request ripples through 11 microservices</text>
+
+  <!-- ================= ARROWS ================= -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M175,500 Q280,505 305,500" stroke="#2A2420" stroke-width="2.5" marker-end="url(#arrow-ink)"></path>
+    <path d="M175,205 Q260,300 300,455" stroke="#746B58" stroke-width="2.25" stroke-dasharray="1,9" marker-end="url(#arrow-muted)"></path>
+
+    <path d="M355,455 Q300,300 320,205" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+    <path d="M355,548 Q300,700 320,795" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+    <path d="M365,552 Q300,780 300,918" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+    <path d="M470,470 Q560,320 578,168" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+    <path d="M472,490 Q560,400 583,330" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+    <path d="M480,530 Q560,620 583,672" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+    <path d="M474,545 Q560,720 588,824" stroke="#2A2420" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+
+    <path d="M615,878 Q590,930 588,948" stroke="#146B63" stroke-width="2.25" marker-end="url(#arrow-ink)"></path>
+
+    <path d="M485,495 Q800,470 945,497" stroke="#C1451B" stroke-width="3.5" marker-end="url(#arrow-accent)"></path>
+
+    <path d="M1105,462 Q1150,340 1160,268" stroke="#C1451B" stroke-width="2.5" marker-end="url(#arrow-accent)"></path>
+    <path d="M1105,540 Q1150,660 1160,732" stroke="#C1451B" stroke-width="2.5" marker-end="url(#arrow-accent)"></path>
+    <path d="M1000,548 Q820,610 745,672" stroke="#C1451B" stroke-width="2.5" marker-end="url(#arrow-accent)"></path>
+    <path d="M985,548 Q820,700 740,824" stroke="#C1451B" stroke-width="2.5" marker-end="url(#arrow-accent)"></path>
+    <path d="M965,458 Q820,380 745,335" stroke="#C1451B" stroke-width="2.5" marker-end="url(#arrow-accent)"></path>
+    <path d="M950,452 Q800,280 745,172" stroke="#C1451B" stroke-width="2.5" marker-end="url(#arrow-accent)"></path>
+  </g>
+
+  <!-- ================= LABELS ================= -->
+  <g font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-size="16" fill="#2A2420" text-anchor="middle" style="paint-order: stroke; stroke: #F6F1E3; stroke-width: 5px;">
+    <text x="235" y="490">browses</text>
+    <text x="205" y="330" fill="#746B58">simulates shoppers</text>
+    <text x="270" y="300">ads</text>
+    <text x="270" y="700">related items</text>
+    <text x="215" y="770">chat</text>
+    <text x="500" y="260">browse catalog</text>
+    <text x="500" y="420">convert prices</text>
+    <text x="500" y="612">get quote</text>
+    <text x="500" y="740">view cart</text>
+    <text x="555" y="915" font-size="14" fill="#146B63">GET/SET items</text>
+    <text x="710" y="465" fill="#C1451B" font-weight="700">place order</text>
+    <text x="1120" y="350" fill="#C1451B">charge card</text>
+    <text x="1120" y="660" fill="#C1451B">send receipt</text>
+    <text x="850" y="640" fill="#C1451B">arrange delivery</text>
+    <text x="835" y="760" fill="#C1451B">empty cart</text>
+    <text x="835" y="380" fill="#C1451B">convert total</text>
+    <text x="825" y="260" fill="#C1451B">look up items</text>
+  </g>
+
+  <!-- ================= NODES ================= -->
+  <g transform="translate(110,500) rotate(-1)">
+    <rect x="-65" y="-35" width="130" height="70" rx="10" ry="14" fill="#F6F1E3" stroke="#2A2420" stroke-width="2.5"></rect>
+    <circle cx="0" cy="-8" r="12" fill="none" stroke="#2A2420" stroke-width="2"></circle>
+    <line x1="9" y1="1" x2="18" y2="10" stroke="#2A2420" stroke-width="2" stroke-linecap="round"></line>
+    <text x="0" y="26" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="16">Shopper</text>
+  </g>
+
+  <g transform="translate(110,200) rotate(1.2)">
+    <rect x="-65" y="-32" width="130" height="64" rx="9" ry="13" fill="#F6F1E3" stroke="#746B58" stroke-width="2" stroke-dasharray="5,4"></rect>
+    <rect x="-14" y="-16" width="28" height="20" rx="4" fill="none" stroke="#746B58" stroke-width="2"></rect>
+    <circle cx="-6" cy="-7" r="2.4" fill="#746B58"></circle>
+    <circle cx="6" cy="-7" r="2.4" fill="#746B58"></circle>
+    <line x1="0" y1="-16" x2="0" y2="-23" stroke="#746B58" stroke-width="2"></line>
+    <text x="0" y="21" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="15" fill="#746B58">loadgenerator</text>
+  </g>
+
+  <g transform="translate(390,500) rotate(-0.7)">
+    <rect x="-95" y="-50" width="190" height="100" rx="12" ry="18" fill="#F6F1E3" stroke="#2A2420" stroke-width="3"></rect>
+    <path d="M-20,-24 h40 l6,14 h-52 z M-16,-10 l-4,26 h44 l-4,-26" fill="none" stroke="#2A2420" stroke-width="2" stroke-linejoin="round"></path>
+    <text x="0" y="32" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="19">frontend</text>
+  </g>
+
+  <g transform="translate(1040,500) rotate(0.8)">
+    <rect x="-95" y="-50" width="190" height="100" rx="14" ry="10" fill="#C1451B26" stroke="#C1451B" stroke-width="3"></rect>
+    <path d="M-24,-20 h14 l6,22 h20 M-4,-20 l24,0 l-5,16" fill="none" stroke="#C1451B" stroke-width="2.2" stroke-linejoin="round"></path>
+    <circle cx="-6" cy="10" r="3" fill="#C1451B"></circle>
+    <circle cx="14" cy="10" r="3" fill="#C1451B"></circle>
+    <text x="0" y="34" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="19" fill="#C1451B">checkoutservice</text>
+  </g>
+
+  <g transform="translate(250,170) rotate(0.9)">
+    <rect x="-75" y="-32" width="150" height="64" rx="10" ry="15" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="16">adservice</text>
+  </g>
+  <g transform="translate(250,800) rotate(-1.1)">
+    <rect x="-75" y="-32" width="150" height="64" rx="14" ry="9" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="14.5">recommendationservice</text>
+  </g>
+  <g transform="translate(250,950) rotate(1)">
+    <rect x="-90" y="-32" width="180" height="64" rx="12" ry="12" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="14">shoppingassistantservice</text>
+  </g>
+  <g transform="translate(660,150) rotate(-0.8)">
+    <rect x="-85" y="-32" width="170" height="64" rx="9" ry="16" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="14.5">productcatalogservice</text>
+  </g>
+  <g transform="translate(660,320) rotate(0.7)">
+    <rect x="-80" y="-32" width="160" height="64" rx="13" ry="10" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="15">currencyservice</text>
+  </g>
+  <g transform="translate(660,680) rotate(-0.6)">
+    <rect x="-80" y="-32" width="160" height="64" rx="10" ry="15" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="15">shippingservice</text>
+  </g>
+  <g transform="translate(660,850) rotate(1.1)">
+    <rect x="-75" y="-32" width="150" height="64" rx="14" ry="9" fill="#F6F1E3" stroke="#2A2420" stroke-width="2"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="16">cartservice</text>
+  </g>
+  <g transform="translate(1170,230) rotate(0.6)">
+    <rect x="-75" y="-32" width="150" height="64" rx="9" ry="16" fill="#C1451B26" stroke="#C1451B" stroke-width="2.25"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="15.5" fill="#C1451B">paymentservice</text>
+  </g>
+  <g transform="translate(1170,770) rotate(-1)">
+    <rect x="-75" y="-32" width="150" height="64" rx="13" ry="10" fill="#C1451B26" stroke="#C1451B" stroke-width="2.25"></rect>
+    <text x="0" y="6" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="16" fill="#C1451B">emailservice</text>
+  </g>
+
+  <g transform="translate(575,975)">
+    <path d="M-45,-20 a45,10 0 0 1 90,0 v22 a45,10 0 0 1 -90,0 z" fill="#F6F1E3" stroke="#146B63" stroke-width="2.25"></path>
+    <ellipse cx="0" cy="-20" rx="45" ry="10" fill="none" stroke="#146B63" stroke-width="2.25"></ellipse>
+    <text x="0" y="4" text-anchor="middle" font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-weight="700" font-size="14" fill="#146B63">redis</text>
+  </g>
+
+  <g font-family="'Kalam','Comic Sans MS',cursive,sans-serif" font-size="15" fill="#746B58">
+    <line x1="40" y1="1010" x2="66" y2="1010" stroke="#2A2420" stroke-width="3"></line>
+    <text x="74" y="1015">frontend's own calls</text>
+    <line x1="260" y1="1010" x2="286" y2="1010" stroke="#C1451B" stroke-width="4"></line>
+    <text x="294" y="1015">checkout's fan-out</text>
+    <line x1="470" y1="1010" x2="496" y2="1010" stroke="#746B58" stroke-width="3" stroke-dasharray="1,7"></line>
+    <text x="504" y="1015">simulated traffic</text>
+  </g>
+</svg>

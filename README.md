@@ -22,6 +22,15 @@ microservices](/docs/img/architecture-diagram.png)](/docs/img/architecture-diagr
 
 Find **Protocol Buffers Descriptions** at the [`./protos` directory](/protos).
 
+<details open>
+<summary>Sketchnote: the checkout fan-out</summary>
+
+Most services only hear from `frontend`. The moment an order is placed, `checkoutservice` becomes a second caller into half the graph — product catalog, currency, and cart all get called twice for the same request.
+
+![Sketchnote diagram of the checkout fan-out: frontend calls most services directly, while checkoutservice separately calls payment, email, shipping, cart, currency, and product catalog to complete an order](/docs/img/checkout-fan-out-sketchnote.svg)
+
+</details>
+
 | Service                                              | Language      | Description                                                                                                                       |
 | ---------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [frontend](/src/frontend)                           | Go            | Exposes an HTTP server to serve the website. Does not require signup/login and generates session IDs for all users automatically. |

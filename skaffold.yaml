@@ -50,6 +50,7 @@ build:
   tagPolicy:
     gitCommit: {}
   local:
+    push: false
     useDockerCLI: true
     useBuildkit: true
 manifests:
@@ -106,6 +107,7 @@ build:
   - image: loadgenerator
     context: src/loadgenerator
   local:
+    push: false
     useDockerCLI: true
     useBuildkit: true
 manifests:

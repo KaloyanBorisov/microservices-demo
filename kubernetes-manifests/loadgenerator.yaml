@@ -17,6 +17,7 @@ metadata:
   name: loadgenerator
   labels:
     app: loadgenerator
+    app.kubernetes.io/name: loadgenerator
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ spec:
     metadata:
       labels:
         app: loadgenerator
+        app.kubernetes.io/name: loadgenerator
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:

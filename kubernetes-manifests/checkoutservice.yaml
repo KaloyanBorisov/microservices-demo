@@ -18,6 +18,7 @@ metadata:
   name: checkoutservice
   labels:
     app: checkoutservice
+    app.kubernetes.io/name: checkoutservice
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ spec:
     metadata:
       labels:
         app: checkoutservice
+        app.kubernetes.io/name: checkoutservice
     spec:
       serviceAccountName: checkoutservice
       securityContext:
@@ -80,6 +82,7 @@ metadata:
   name: checkoutservice
   labels:
     app: checkoutservice
+    app.kubernetes.io/name: checkoutservice
 spec:
   type: ClusterIP
   selector:

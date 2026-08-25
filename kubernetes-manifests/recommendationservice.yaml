@@ -18,6 +18,7 @@ metadata:
   name: recommendationservice
   labels:
     app: recommendationservice
+    app.kubernetes.io/name: recommendationservice
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ spec:
     metadata:
       labels:
         app: recommendationservice
+        app.kubernetes.io/name: recommendationservice
     spec:
       serviceAccountName: recommendationservice
       terminationGracePeriodSeconds: 5
@@ -75,6 +77,7 @@ metadata:
   name: recommendationservice
   labels:
     app: recommendationservice
+    app.kubernetes.io/name: recommendationservice
 spec:
   type: ClusterIP
   selector:

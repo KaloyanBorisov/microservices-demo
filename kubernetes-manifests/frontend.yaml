@@ -18,6 +18,7 @@ metadata:
   name: frontend
   labels:
     app: frontend
+    app.kubernetes.io/name: frontend
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ spec:
     metadata:
       labels:
         app: frontend
+        app.kubernetes.io/name: frontend
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
@@ -111,6 +113,7 @@ metadata:
   name: frontend
   labels:
     app: frontend
+    app.kubernetes.io/name: frontend
 spec:
   type: ClusterIP
   selector:
@@ -132,7 +135,7 @@ spec:
     app: frontend
   ports:
   - name: http
-    port: 80
+    port: 8080
     targetPort: 8080
 ---
 apiVersion: v1

@@ -18,6 +18,7 @@ metadata:
   name: shippingservice
   labels:
     app: shippingservice
+    app.kubernetes.io/name: shippingservice
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ spec:
     metadata:
       labels:
         app: shippingservice
+        app.kubernetes.io/name: shippingservice
     spec:
       serviceAccountName: shippingservice
       securityContext:
@@ -71,6 +73,7 @@ metadata:
   name: shippingservice
   labels:
     app: shippingservice
+    app.kubernetes.io/name: shippingservice
 spec:
   type: ClusterIP
   selector:
