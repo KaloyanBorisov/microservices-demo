@@ -1,97 +1,68 @@
-<!-- Copyright 2022 Google LLC
+# Deploy Online Boutique on Google Cloud Run with Terraform ($0 Fixed Cost)
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+This Terraform configuration provisions the entire Online Boutique microservices architecture on **Google Cloud Run (v2)** with **$0 fixed monthly infrastructure costs** (using built-in in-memory session caching and pure scale-to-zero serverless containers).
 
-http://www.apache.org/licenses/LICENSE-2.0
+---
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License. -->
+## 🏗 Architecture Overview
 
-# Use Terraform to deploy Online Boutique on a GKE cluster
+* **Frontend:** Public-facing Cloud Run service with unauthenticated HTTP access.
+* **Backend Services (gRPC / HTTP/2 over TLS):**
+  * `adservice`
+  * `cartservice` (In-Memory distributed cache)
+  * `checkoutservice`
+  * `currencyservice`
+  * `emailservice`
+  * `paymentservice`
+  * `productcatalogservice`
+  * `recommendationservice`
+  * `shippingservice`
+* **Monthly Idle Cost:** **$0.00** (Full scale-to-zero; covered under Google Cloud Run's Free Tier).
 
-This page walks you through the steps required to deploy the [Online Boutique](https://github.com/GoogleCloudPlatform/microservices-demo) sample application on a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) cluster using Terraform.
+---
 
-## Prerequisites
+## 🚀 Deployment Instructions
 
-1. [Create a new project or use an existing project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#console) on Google Cloud, and ensure [billing is enabled](https://cloud.google.com/billing/docs/how-to/verify-billing-enabled) on the project.
-
-## Deploy the sample application
-
-1. Clone the Github repository.
-
-    ```bash
-    git clone https://github.com/GoogleCloudPlatform/microservices-demo.git
-    ```
-
-1. Move into the `terraform/` directory which contains the Terraform installation scripts.
-
-    ```bash
-    cd microservices-demo/terraform
-    ```
-
-1. Open the `terraform.tfvars` file and replace `<project_id_here>` with the [GCP Project ID](https://cloud.google.com/resource-manager/docs/creating-managing-projects?hl=en#identifying_projects) for the `gcp_project_id` variable.
-
-1. (Optional) If you want to provision a [Google Cloud Memorystore (Redis)](https://cloud.google.com/memorystore) instance, you can change the value of `memorystore = false` to `memorystore = true` in this `terraform.tfvars` file.
-
-1. Initialize Terraform.
-
-    ```bash
-    terraform init
-    ```
-
-1. See what resources will be created.
-
-    ```bash
-    terraform plan
-    ```
-
-1. Create the resources and deploy the sample.
-
-    ```bash
-    terraform apply
-    ```
-
-    1. If there is a confirmation prompt, type `yes` and hit Enter/Return.
-
-    Note: This step can take about 10 minutes. Do not interrupt the process.
-
-Once the Terraform script has finished, you can locate the frontend's external IP address to access the sample application.
-
-- Option 1:
-
-    ```bash
-    kubectl get service frontend-external | awk '{print $4}'
-    ```
-
-- Option 2: On Google Cloud Console, navigate to "Kubernetes Engine" and then "Services & Ingress" to locate the Endpoint associated with "frontend-external".
-
-## Clean up
-
-To avoid incurring charges to your Google Cloud account for the resources used in this sample application, either delete the project that contains the resources, or keep the project and delete the individual resources.
-
-To remove the individual resources created for by Terraform without deleting the project:
-
-1. Navigate to the `terraform/` directory.
-
-1. Set `deletion_protection` to `false` for the `google_container_cluster` resource (GKE cluster).
-
+### Prerequisites
+1. [Google Cloud SDK (`gcloud`)](https://cloud.google.com/sdk/docs/install) installed and authenticated:
    ```bash
-   # Uncomment the line: "deletion_protection = false"
-   sed -i "s/# deletion_protection/deletion_protection/g" main.tf
+   gcloud auth login
+   gcloud auth application-default login
+   ```
+2. [Terraform CLI / OpenTofu](https://opentofu.org/docs/intro/install/) (>= 1.5.0) installed.
 
-   # Re-apply the Terraform to update the state
+### Steps
+
+1. **Initialize Terraform:**
+   ```bash
+   cd terraform
+   terraform init
+   ```
+
+2. **Configure Variables:**
+   Copy `terraform.tfvars.example` to `terraform.tfvars`:
+   ```bash
+   cp terraform.tfvars.example terraform.tfvars
+   ```
+   Edit `terraform.tfvars` and set your `gcp_project_id` and image registry.
+
+3. **Plan and Apply:**
+   ```bash
+   terraform plan
    terraform apply
    ```
 
-1. Run the following command:
-
+4. **Access the Application:**
+   Once completed, Terraform outputs the frontend URL:
    ```bash
-   terraform destroy
+   terraform output frontend_url
    ```
+   Open the printed URL in your browser to access Online Boutique.
 
-   1. If there is a confirmation prompt, type `yes` and hit Enter/Return.
+---
+
+## 🧹 Cleanup
+To tear down all resources:
+```bash
+terraform destroy
+```

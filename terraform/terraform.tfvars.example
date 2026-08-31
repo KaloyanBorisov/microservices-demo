@@ -1,0 +1,5 @@
+gcp_project_id      = "your-gcp-project-id"
+region              = "us-central1"
+name_prefix         = "boutique"
+container_registry  = "gcr.io/google-samples/microservices-demo"
+container_image_tag = "v0.10.1"

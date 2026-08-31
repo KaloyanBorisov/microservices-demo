@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,34 +14,29 @@
 
 variable "gcp_project_id" {
   type        = string
-  description = "The GCP project ID to apply this config to"
-}
-
-variable "name" {
-  type        = string
-  description = "Name given to the new GKE cluster"
-  default     = "online-boutique"
+  description = "The Google Cloud Project ID where resources will be deployed."
 }
 
 variable "region" {
   type        = string
-  description = "Region of the new GKE cluster"
+  description = "Google Cloud region for Cloud Run and supporting services."
   default     = "us-central1"
 }
 
-variable "namespace" {
+variable "name_prefix" {
   type        = string
-  description = "Kubernetes Namespace in which the Online Boutique resources are to be deployed"
-  default     = "default"
+  description = "Prefix prepended to resource names."
+  default     = "boutique"
 }
 
-variable "filepath_manifest" {
+variable "container_registry" {
   type        = string
-  description = "Path to Online Boutique's Kubernetes resources, written using Kustomize"
-  default     = "../kustomize/"
+  description = "Container image registry path prefix (e.g. gcr.io/google-samples/microservices-demo or your Artifact Registry)."
+  default     = "gcr.io/google-samples/microservices-demo"
 }
 
-variable "memorystore" {
-  type        = bool
-  description = "If true, Online Boutique's in-cluster Redis cache will be replaced with a Google Cloud Memorystore Redis cache"
+variable "container_image_tag" {
+  type        = string
+  description = "Image tag for the microservice images."
+  default     = "v0.10.1"
 }

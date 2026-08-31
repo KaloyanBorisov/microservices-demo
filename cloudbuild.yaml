@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,32 +12,70 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START cloudbuild_microservice_demo_cloudbuild]
-
-# This configuration file is used to build and deploy the app into a
-# GKE cluster using Google Cloud Build.
-#
-# PREREQUISITES:
-# - Cloud Build service account must have role: "Kubernetes Engine Developer"
-
-# USAGE:
-# GCP zone and GKE target cluster must be specified as substitutions
-# Example invocation:
-# `gcloud builds submit --config=cloudbuild.yaml --substitutions=_ZONE=us-central1-b,_CLUSTER=demo-app-staging .`
-
 steps:
-- id: 'Deploy application to cluster'
-  name: 'gcr.io/k8s-skaffold/skaffold:v2.16.1'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - >
-    gcloud container clusters get-credentials --zone=$_ZONE $_CLUSTER;
-    skaffold run -f=skaffold.yaml --default-repo=gcr.io/$PROJECT_ID;
+  # 1. adservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/adservice:latest', './src/adservice']
+    waitFor: ['-']
 
-# Add more power, and more time, for heavy Skaffold build
-timeout: '3600s'
+  # 2. cartservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/cartservice:latest', './src/cartservice/src']
+    waitFor: ['-']
+
+  # 3. checkoutservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/checkoutservice:latest', './src/checkoutservice']
+    waitFor: ['-']
+
+  # 4. currencyservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/currencyservice:latest', './src/currencyservice']
+    waitFor: ['-']
+
+  # 5. emailservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/emailservice:latest', './src/emailservice']
+    waitFor: ['-']
+
+  # 6. frontend
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/frontend:latest', './src/frontend']
+    waitFor: ['-']
+
+  # 7. paymentservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/paymentservice:latest', './src/paymentservice']
+    waitFor: ['-']
+
+  # 8. productcatalogservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/productcatalogservice:latest', './src/productcatalogservice']
+    waitFor: ['-']
+
+  # 9. recommendationservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/recommendationservice:latest', './src/recommendationservice']
+    waitFor: ['-']
+
+  # 10. shippingservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/shippingservice:latest', './src/shippingservice']
+    waitFor: ['-']
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/adservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/cartservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/checkoutservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/currencyservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/emailservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/frontend:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/paymentservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/productcatalogservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/recommendationservice:latest'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/online-boutique/shippingservice:latest'
+
 options:
-  machineType: 'N1_HIGHCPU_8'
-  
-# [END cloudbuild_microservice_demo_cloudbuild]
+  machineType: 'E2_HIGHCPU_32'
+
+timeout: '1800s'
