@@ -99,7 +99,7 @@ spec:
           #   value: "" # This value would look like "http://123.123.123"
           resources:
             requests:
-              cpu: 50m
+              cpu: 20m
               memory: 64Mi
             limits:
               cpu: 200m
