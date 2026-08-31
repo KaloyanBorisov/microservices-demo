@@ -143,6 +143,18 @@ Most services only hear from `frontend`. The moment an order is placed, `checkou
 - **AI assistant using Gemini**: [See these instructions](/kustomize/components/shopping-assistant/README.md) to deploy a Gemini-powered AI assistant that suggests products to purchase based on an image.
 - **And more**: The [`/kustomize` directory](/kustomize) contains instructions for customizing the deployment of Online Boutique with other variations.
 
+## Observability (optional, not yet implemented)
+
+Most services already emit [OpenTelemetry](https://opentelemetry.io/) traces out of the box (`frontend`, `checkoutservice`, `productcatalogservice`, `recommendationservice`, `emailservice`, `paymentservice`, `currencyservice`). The repo ships one collector wired for **Google Cloud** specifically ([`kustomize/components/google-cloud-operations`](/kustomize/components/google-cloud-operations)) — it queries the GCP metadata server for a project ID and only works on GKE.
+
+For a non-GCP setup (e.g. this project deployed locally via Docker Desktop or Rancher Desktop), the traces/logs can instead be shipped to [Grafana Cloud](https://grafana.com)'s free tier, which offers a single unified OTLP endpoint for traces, logs, and metrics together. This has been scoped but **not built** — no collector manifest exists in this repo yet. To do it:
+
+1. Sign up free at [grafana.com](https://grafana.com) (free tier: 10k metric series, 50GB/mo logs, 50GB/mo traces, 14-day retention — see [pricing](https://grafana.com/pricing/)).
+2. In the Grafana Cloud portal: **Connections → OpenTelemetry** for the OTLP endpoint URL and Instance ID; **Security → Access Policies** to create a token with `write` scope for `metrics`/`logs`/`traces`.
+3. Deploy [Grafana Alloy](https://grafana.com/docs/alloy/) into the cluster, configured to receive OTLP traces from the services above and scrape pod logs, exporting both to the Grafana Cloud OTLP endpoint (Instance ID + token as Basic Auth).
+
+This would live as a separate manifest alongside the app (not mixed into `google-cloud-operations`), so the app's own deploy path is unaffected either way.
+
 ## Documentation
 
 - [Development](/docs/development-guide.md) to learn how to run and develop this app locally.
