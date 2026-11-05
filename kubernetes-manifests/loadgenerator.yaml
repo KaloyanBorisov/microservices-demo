@@ -18,6 +18,8 @@ metadata:
   labels:
     app: loadgenerator
     app.kubernetes.io/name: loadgenerator
+    app.kubernetes.io/instance: online-boutique
+    app.kubernetes.io/part-of: online-boutique
 spec:
   selector:
     matchLabels:

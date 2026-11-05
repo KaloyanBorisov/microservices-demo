@@ -95,6 +95,7 @@ metadata:
   name: redis-cart
   labels:
     app: redis-cart
+    app.kubernetes.io/name: redis-cart
 spec:
   selector:
     matchLabels:
