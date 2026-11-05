@@ -58,7 +58,8 @@ manifests:
     paths:
     - kubernetes-manifests
 deploy:
-  kubectl: {}
+  kubectl:
+    defaultNamespace: online-boutique
 # "gcb" profile allows building and pushing the images
 # on Google Container Builder without requiring docker
 # installed on the developer machine. However, note that
@@ -114,7 +115,8 @@ manifests:
   rawYaml:
   - ./kubernetes-manifests/loadgenerator.yaml
 deploy:
-  kubectl: {}
+  kubectl:
+    defaultNamespace: online-boutique
 profiles:
 - name: gcb
   build:
