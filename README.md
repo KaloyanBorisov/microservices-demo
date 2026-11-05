@@ -81,7 +81,8 @@ Most services only hear from `frontend`. The moment an order is placed, `checkou
 
    ```sh
    gcloud container clusters create-auto online-boutique \
-     --project=${PROJECT_ID} --region=${REGION}
+     --project=${PROJECT_ID} --region=${REGION} \
+     --labels dev-tutorial=online-boutique
    ```
 
    Creating the cluster may take a few minutes.
